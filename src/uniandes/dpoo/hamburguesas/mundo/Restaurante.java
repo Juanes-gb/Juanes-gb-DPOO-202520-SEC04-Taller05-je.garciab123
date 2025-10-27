@@ -96,13 +96,17 @@ public class Restaurante
      * @throws NoHayPedidoEnCursoException Lanza esta excepción si no hay un pedido en curso
      * @throws FileNotFoundException Lanza esta excepción si hay problemas guardando el archivo
      */
-    public void cerrarYGuardarPedido( ) throws NoHayPedidoEnCursoException, IOException
+    public void cerrarYGuardarPedido() throws NoHayPedidoEnCursoException, IOException
     {
-        if( pedidoEnCurso == null )
-            throw new NoHayPedidoEnCursoException( );
+        if (pedidoEnCurso == null)
+            throw new NoHayPedidoEnCursoException();
 
-        String nombreArchivo = PREFIJO_FACTURAS + pedidoEnCurso.getIdPedido( ) + ".txt";
-        pedidoEnCurso.guardarFactura( new File( CARPETA_FACTURAS + nombreArchivo ) );
+        File dir = new File(CARPETA_FACTURAS);
+        if (!dir.exists()) dir.mkdirs();
+
+        String nombreArchivo = PREFIJO_FACTURAS + pedidoEnCurso.getIdPedido() + ".txt";
+        pedidoEnCurso.guardarFactura(new File(dir, nombreArchivo));
+        pedidos.add(pedidoEnCurso);
         pedidoEnCurso = null;
     }
 

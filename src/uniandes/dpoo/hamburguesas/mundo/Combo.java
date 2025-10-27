@@ -55,7 +55,7 @@ public class Combo implements Producto
             precio += i.getPrecio( );
         }
 
-        return ( int ) ( precio * descuento );
+        return (int) Math.round(precio * (1.0 - descuento));
     }
 
     /**
